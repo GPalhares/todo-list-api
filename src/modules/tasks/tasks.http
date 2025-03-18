@@ -3,12 +3,12 @@ POST http://localhost:3000/tasks
 Content-Type: application/json
 
 {
-  "description": "Descrição da tarefa",
-  "userId": "123"
+  "description": "Descrição da tarefa3",
+  "userId": "6d05c473-7a06-45bd-bcf1-4496e4757fd2"
 }
 
 ### Atualizar uma task
-PATCH http://localhost:3000/tasks/795e9a43-2007-47f8-a57a-041b885993eb
+PATCH http://localhost:3000/tasks/0ccf3f3d-e508-473c-aba7-3cb3b02efa5a
 Content-Type: application/json
 
 {
@@ -16,10 +16,10 @@ Content-Type: application/json
 }
 
 ### Remover (soft delete) uma task
-DELETE http://localhost:3000/tasks/c1ae7715-d8a7-4c80-8163-ac3fe769ddfd
+DELETE http://localhost:3000/tasks/0ccf3f3d-e508-473c-aba7-3cb3b02efa5a
 
 ### Listar todas as tasks de um usuário
-GET http://localhost:3000/tasks/user/123
+GET http://localhost:3000/tasks/user/6d05c473-7a06-45bd-bcf1-4496e4757fd2
 
 ### Listar todas as tasks
 GET http://localhost:3000/tasks

@@ -1,19 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, IsNull } from 'typeorm';
 import { TaskEntity } from '../entities/task.entity';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
+import { UserEntity } from '../../users/entities/user.entity';
 
 @Injectable()
 class TasksService {
   constructor(
     @InjectRepository(TaskEntity)
     private readonly tasksRepository: Repository<TaskEntity>,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
   ) {}
 
   async create(dto: CreateTaskDto) {
-    const newTask = this.tasksRepository.create(dto);
+    if (!dto.userId) {
+      throw new NotFoundException('User ID is required');
+    }
+
+    const user = await this.usersRepository.findOne({
+      where: { id: dto.userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const newTask = this.tasksRepository.create({
+      ...dto,
+      user: user,
+    });
+
     return this.tasksRepository.save(newTask);
   }
 
@@ -30,14 +49,19 @@ class TasksService {
   async update(id: string, dto: UpdateTaskDto) {
     const task = await this.tasksRepository.findOneBy({ id });
     if (!task) {
-      throw new Error('Task not found');
+      throw new NotFoundException('Task not found');
     }
     await this.tasksRepository.update(id, dto);
     return this.tasksRepository.findOneBy({ id });
   }
 
   async softDelete(id: string) {
-    return this.tasksRepository.update(id, { deleted_at: new Date() });
+    const task = await this.tasksRepository.findOne({ where: { id } });
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
+    task.deleted_at = new Date();
+    return this.tasksRepository.save(task);
   }
 }
 

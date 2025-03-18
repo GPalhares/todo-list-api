@@ -39,10 +39,16 @@ class TasksController {
     return this.tasksService.softDelete(id);
   }
 
+  @Get()
+  findAll() {
+    return this.tasksService.findAll();
+  }
+
   @Get('user/:user_id')
-  findAllByUser(@Param('user_id') user_id: string) {
-    this.validateUUID(user_id);
-    return this.tasksService.findAllByUser(user_id);
+  findAllByUser(@Param('user_id') userId: string) {
+    this.validateUUID(userId);
+    return this.tasksService.findAllByUser(userId);
   }
 }
+
 export { TasksController };
