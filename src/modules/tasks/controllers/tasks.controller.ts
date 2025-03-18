@@ -1,14 +1,13 @@
-const { Controller, Get, Post, Body } = require('@nestjs/common');
-const { TasksService } = require('./tasks.service');
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { TasksService } from '../services/tasks.service';
+import { CreateTaskDto } from '../dto/create-task.dto';
 
 @Controller('tasks')
 class TasksController {
-  constructor(tasksService) {
-    this.tasksService = tasksService;
-  }
+  constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() task) {
+  create(@Body() task: CreateTaskDto) {
     return this.tasksService.create(task);
   }
 
@@ -18,4 +17,4 @@ class TasksController {
   }
 }
 
-module.exports = { TasksController };
+export { TasksController };

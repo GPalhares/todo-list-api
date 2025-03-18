@@ -1,26 +1,24 @@
-const { Module } = require('@nestjs/common');
+import { Module } from '@nestjs/common';
 import { UsersModule } from './modules/users/users.module';
 import { TasksModule } from './modules/tasks/tasks.module';
-const { TypeOrmModule } = require('@nestjs/typeorm');
-const { User } = require('./modules/users/user.entity');
-const { Task } = require('./modules/tasks/task.entity');  
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './modules/users/entities/user.entity';
+import { TaskEntity } from './modules/tasks/entities/task.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', 
+      host: 'localhost',
       port: 5432,
       username: 'admin',
-      password: 'admin', 
+      password: 'admin',
       database: 'todo-list-db',
-      entities: [User, Task],
+      entities: [UserEntity, TaskEntity],
       synchronize: true,
     }),
     UsersModule,
     TasksModule,
-
   ],
 })
-
-module.exports = AppModule;
+export class AppModule {}

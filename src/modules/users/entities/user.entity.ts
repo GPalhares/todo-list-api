@@ -1,33 +1,28 @@
-const {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BeforeInsert,
-} = require('typeorm');
-const bcrypt = require('bcrypt');
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Entity()
-class User {
+class UserEntity {
   @PrimaryGeneratedColumn('uuid')
-  id;
+  id: string;
 
   @Column()
-  name;
+  name: string;
 
   @Column({ unique: true })
-  email;
+  email: string;
 
   @Column()
-  password;
+  password: string;
 
   @Column({ type: 'int' })
-  user_type;
+  user_type: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  deletedAt;
+  deletedAt: Date | null;
 
   @BeforeInsert()
   async hashPassword() {
@@ -38,4 +33,4 @@ class User {
   }
 }
 
-module.exports = { User };
+export { UserEntity };

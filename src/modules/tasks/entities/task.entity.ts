@@ -1,36 +1,31 @@
-const {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-} = require('typeorm');
-const { User } = require('../users/user.entity');
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity()
-class Task {
+class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
-  id;
+  id: string;
 
-  @ManyToOne(() => User, (user) => user.id, { onDelete: 'CASCADE' })
-  user;
+  @ManyToOne(() => UserEntity, (user) => user.id, { onDelete: 'CASCADE' })
+  user: UserEntity;
 
   @Column()
-  description;
+  description: string;
 
   @Column({ default: 'pendente' })
-  status;
+  status: string;
 
   @Column('text', { array: true, default: [] })
-  tags;
+  tags: string[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt;
+  createdAt: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt;
+  updatedAt: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  deletedAt;
+  deletedAt: Date | null;
 }
 
-module.exports = { Task };
+export { TaskEntity };

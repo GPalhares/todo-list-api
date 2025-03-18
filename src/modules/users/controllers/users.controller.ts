@@ -1,14 +1,13 @@
-const { Controller, Get, Post, Body } = require('@nestjs/common');
-const { UsersService } = require('./users.service');
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { UsersService } from '../services/users.service';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Controller('users')
 class UsersController {
-  constructor(usersService) {
-    this.usersService = usersService;
-  }
+  constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() user) {
+  create(@Body() user: CreateUserDto) {
     return this.usersService.create(user);
   }
 
@@ -18,4 +17,4 @@ class UsersController {
   }
 }
 
-module.exports = { UsersController };
+export { UsersController };

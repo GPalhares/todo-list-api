@@ -1,20 +1,27 @@
-const { Injectable } = require('@nestjs/common');
-const { InjectRepository } = require('@nestjs/typeorm');
-const { Repository } = require('typeorm');
-const { User } = require('./user.entity');
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../entities/user.entity';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Injectable()
 class UsersService {
-  constructor(@InjectRepository(User) this.usersRepository) {}
+  private usersRepository: Repository<UserEntity>;
 
-  async create(user) {
-    const newUser = this.usersRepository.create(user);
-    return this.usersRepository.save(newUser);
+  constructor(
+    @InjectRepository(UserEntity) usersRepository: Repository<UserEntity>,
+  ) {
+    this.usersRepository = usersRepository;
+  }
+
+  async create(dto: CreateUserDto) {
+    const newUser = this.usersRepository.create(dto);
+    return await this.usersRepository.save(newUser);
   }
 
   async findAll() {
-    return this.usersRepository.find();
+    return await this.usersRepository.find();
   }
 }
 
-module.exports = { UsersService };
+export { UsersService };

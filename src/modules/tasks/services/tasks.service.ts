@@ -1,14 +1,21 @@
-const { Injectable } = require('@nestjs/common');
-const { InjectRepository } = require('@nestjs/typeorm');
-const { Repository } = require('typeorm');
-const { Task } = require('./task.entity');
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TaskEntity } from '../entities/task.entity';
+import { CreateTaskDto } from '../dto/create-task.dto';
 
 @Injectable()
 class TasksService {
-  constructor(@InjectRepository(Task) this.tasksRepository) {}
+  private tasksRepository: Repository<TaskEntity>;
 
-  async create(task) {
-    const newTask = this.tasksRepository.create(task);
+  constructor(
+    @InjectRepository(TaskEntity) tasksRepository: Repository<TaskEntity>,
+  ) {
+    this.tasksRepository = tasksRepository;
+  }
+
+  async create(dto: CreateTaskDto) {
+    const newTask = this.tasksRepository.create(dto);
     return this.tasksRepository.save(newTask);
   }
 
@@ -17,4 +24,4 @@ class TasksService {
   }
 }
 
-module.exports = { TasksService };
+export { TasksService };
