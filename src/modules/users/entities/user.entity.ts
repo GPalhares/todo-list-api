@@ -15,14 +15,14 @@ class UserEntity {
   @Column()
   password: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', default: 1 })
   user_type: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  created_at: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  deleted_at: Date | null;
 
   @BeforeInsert()
   async hashPassword() {

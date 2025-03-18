@@ -1,1 +1,24 @@
+### Criação de Usuário
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joaoa42.silva@example.com",
+  "password": "senha123"
+}
+
+### Listar Todos os Usuários
 GET http://localhost:3000/users
+
+### Atualizar Usuário
+PATCH http://localhost:3000/users/f9c426c6-caa4-4125-bcf7-8112556dac38
+Content-Type: application/json
+
+{
+  "name": "João Silva Atualizado",
+  "email": "joao.silva7.atualizado@example.com"
+}
+
+### Soft Delete de Usuário
+PATCH http://localhost:3000/users/softdelete/f9c426c6-caa4-4125-bcf7-8112556dac38
