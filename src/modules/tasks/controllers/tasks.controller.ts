@@ -1,7 +1,9 @@
 import {
   Controller,
+  Get,
   Post,
   Patch,
+  Delete,
   Body,
   Param,
   BadRequestException,
@@ -29,6 +31,18 @@ class TasksController {
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     this.validateUUID(id);
     return this.tasksService.update(id, updateTaskDto);
+  }
+
+  @Delete(':id')
+  softDelete(@Param('id') id: string) {
+    this.validateUUID(id);
+    return this.tasksService.softDelete(id);
+  }
+
+  @Get('user/:user_id')
+  findAllByUser(@Param('user_id') user_id: string) {
+    this.validateUUID(user_id);
+    return this.tasksService.findAllByUser(user_id);
   }
 }
 export { TasksController };

@@ -3,18 +3,16 @@ POST http://localhost:3000/tasks
 Content-Type: application/json
 
 {
-  "title": "Nova Tarefa",
   "description": "Descrição da tarefa",
   "userId": "123"
 }
 
 ### Atualizar uma task
-PATCH http://localhost:3000/tasks/353ec5de-e6ba-42df-a00d-d7bae968de62
+PATCH http://localhost:3000/tasks/795e9a43-2007-47f8-a57a-041b885993eb
 Content-Type: application/json
 
 {
-  "title": "Tarefa Atualizada",
-  "description": "Descrição atualizada"
+  "description": "Descrição atualizada2"
 }
 
 ### Remover (soft delete) uma task

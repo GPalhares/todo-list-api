@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { UserEntity } from '../../users/entities/user.entity';
 
 @Entity()
@@ -6,7 +12,8 @@ class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => UserEntity, (user) => user.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
   @Column()
@@ -19,13 +26,13 @@ class TaskEntity {
   tags: string[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+  created_at: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+  updated_at: Date;
 
   @Column({ type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  deleted_at: Date | null;
 }
 
 export { TaskEntity };
