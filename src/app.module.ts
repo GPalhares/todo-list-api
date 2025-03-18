@@ -1,9 +1,9 @@
 const { Module } = require('@nestjs/common');
-import { UsersModule } from './users/users.module';
-import { TasksModule } from './tasks/tasks.module';
+import { UsersModule } from './modules/users/users.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 const { TypeOrmModule } = require('@nestjs/typeorm');
-const { User } = require('./users/user.entity');
-const { Task } = require('./tasks/task.entity');  
+const { User } = require('./modules/users/user.entity');
+const { Task } = require('./modules/tasks/task.entity');  
 
 @Module({
   imports: [
@@ -11,9 +11,9 @@ const { Task } = require('./tasks/task.entity');
       type: 'postgres',
       host: 'localhost', 
       port: 5432,
-      username: 'seu_usuario',
-      password: 'sua_senha', 
-      database: 'todo_db',
+      username: 'admin',
+      password: 'admin', 
+      database: 'todo-list-db',
       entities: [User, Task],
       synchronize: true,
     }),
@@ -22,4 +22,5 @@ const { Task } = require('./tasks/task.entity');
 
   ],
 })
+
 module.exports = AppModule;
