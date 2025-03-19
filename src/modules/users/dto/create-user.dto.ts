@@ -1,5 +1,4 @@
-import { IsString, IsEmail, IsInt } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsEmail } from 'class-validator';
 
 class CreateUserDto {
   @IsString()
@@ -10,12 +9,6 @@ class CreateUserDto {
 
   @IsString()
   password: string;
-
-  @IsInt()
-  user_type: number;
-
-  @Type(() => Date)
-  deletedAt: Date;
 }
 
 export { CreateUserDto };

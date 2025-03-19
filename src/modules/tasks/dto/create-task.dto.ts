@@ -12,9 +12,8 @@ class CreateTaskDto {
   @IsArray()
   tags: string[] = [];
 
-  @IsOptional()
   @IsUUID()
-  userId: string | null = null;
+  userId: string;
 }
 
 export { CreateTaskDto };

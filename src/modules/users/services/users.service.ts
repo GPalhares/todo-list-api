@@ -43,6 +43,10 @@ class UsersService {
     await this.usersRepository.update(id, dto);
     return this.usersRepository.findOne({ where: { id } });
   }
+
+  async findOne(email: string): Promise<UserEntity | null> {
+    return await this.usersRepository.findOne({ where: { email } });
+  }
 }
 
 export { UsersService };
