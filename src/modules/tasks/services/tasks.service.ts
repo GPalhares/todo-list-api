@@ -16,12 +16,8 @@ class TasksService {
   ) {}
 
   async create(dto: CreateTaskDto) {
-    if (!dto.userId) {
-      throw new NotFoundException('User ID is required');
-    }
-
     const user = await this.usersRepository.findOne({
-      where: { id: dto.userId },
+      where: { id: dto.userId ?? IsNull() },
     });
 
     if (!user) {
