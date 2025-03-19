@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import * as dotenv from 'dotenv';
-import { AuthenticatedRequest } from './interface/authenticated.interface';
+import { AuthenticatedRequest } from './interfaces/authenticated.interface';
 
 dotenv.config();
 

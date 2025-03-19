@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -8,33 +8,42 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Injectable()
 class UsersService {
-  private usersRepository: Repository<UserEntity>;
-
   constructor(
-    @InjectRepository(UserEntity) usersRepository: Repository<UserEntity>,
-  ) {
-    this.usersRepository = usersRepository;
-  }
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
+  ) {}
 
   async create(dto: CreateUserDto) {
     const newUser = this.usersRepository.create(dto);
     return await this.usersRepository.save(newUser);
   }
 
-  async findAll() {
+  async findAll(userType: number) {
+    if (userType !== 2) {
+      throw new ForbiddenException('Access denied');
+    }
     return await this.usersRepository.find();
   }
 
-  async softDelete(id: string) {
+  async softDelete(id: string, userType: number) {
+    if (userType !== 2) {
+      throw new ForbiddenException('Access denied');
+    }
+
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');
     }
+
     user.deleted_at = new Date();
     return this.usersRepository.save(user);
   }
 
-  async update(id: string, dto: UpdateUserDto) {
+  async update(id: string, dto: UpdateUserDto, userType: number) {
+    if (userType !== 2) {
+      throw new ForbiddenException('Access denied');
+    }
+
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');

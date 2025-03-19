@@ -6,12 +6,18 @@ import {
   Patch,
   Param,
   UseGuards,
+  Req,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { AuthGuard } from 'src/modules/guard/auth.guard';
 import { UUIDValidator } from 'src/modules/utils/uuid-validator';
+import { AuthGuard } from 'src/modules/auth/guard/auth.guard';
+import { Request } from 'express';
+
+interface AuthenticatedRequest extends Request {
+  user: { user_type: number };
+}
 
 @Controller('users')
 class UsersController {
@@ -24,22 +30,29 @@ class UsersController {
 
   @UseGuards(AuthGuard)
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Req() req: AuthenticatedRequest) {
+    const { user_type } = req.user;
+    return this.usersService.findAll(user_type);
   }
 
   @UseGuards(AuthGuard)
   @Patch('softdelete/:id')
-  softDelete(@Param('id') id: string) {
+  softDelete(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
     UUIDValidator.validate(id);
-    return this.usersService.softDelete(id);
+    const { user_type } = req.user;
+    return this.usersService.softDelete(id, user_type);
   }
 
   @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
     UUIDValidator.validate(id);
-    return this.usersService.update(id, updateUserDto);
+    const { user_type } = req.user;
+    return this.usersService.update(id, updateUserDto, user_type);
   }
 }
 

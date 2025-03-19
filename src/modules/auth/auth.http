@@ -3,9 +3,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-  "name": "Usuário 1",
-  "email": "usuaro131asd31233@email.com",
-  "password": "senha123"
+  "name": "Admin",
+  "email": "admin@demaria.com.br",
+  "password": "admin"
 }
 
 ### Login

@@ -15,10 +15,8 @@ class TasksService {
     private readonly usersRepository: Repository<UserEntity>,
   ) {}
 
-  async create(dto: CreateTaskDto) {
-    const user = await this.usersRepository.findOne({
-      where: { id: dto.userId ?? IsNull() },
-    });
+  async create(dto: CreateTaskDto, userId: string) {
+    const user = await this.usersRepository.findOne({ where: { id: userId } });
 
     if (!user) {
       throw new NotFoundException('User not found');
@@ -26,7 +24,7 @@ class TasksService {
 
     const newTask = this.tasksRepository.create({
       ...dto,
-      user: user,
+      user,
     });
 
     return this.tasksRepository.save(newTask);
