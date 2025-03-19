@@ -8,6 +8,7 @@ import { UsersService } from 'src/modules/users/services/users.service';
 import { UserEntity } from 'src/modules/users/entities/user.entity';
 import { LoginDto } from '../dto/login.dto';
 import { RegisterDto } from '../dto/register.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
     const { email, password } = loginDto;
     const user: UserEntity | null = await this.usersService.findOne(email);
 
-    if (!user || user.password !== password) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid email or password');
     }
 
@@ -36,6 +37,7 @@ export class AuthService {
     }
 
     const user = await this.usersService.create(registerDto);
+
     return this.generateToken(user);
   }
 
