@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "João Silva",
-  "email": "usuario1@email.com",
+  "email": "usuar321i21o1@email.com",
   "password": "senha123"
 }
 
@@ -14,6 +14,7 @@ GET http://localhost:3000/users
 ### Atualizar Usuário
 PATCH http://localhost:3000/users/f9c426c6-caa4-4125-bcf7-8112556dac38
 Content-Type: application/json
+
 
 {
   "name": "João Silva Atualizado",

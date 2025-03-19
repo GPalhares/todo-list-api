@@ -5,41 +5,40 @@ import {
   Body,
   Patch,
   Param,
-  BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
+import { AuthGuard } from 'src/modules/guard/auth.guard';
+import { UUIDValidator } from 'src/modules/utils/uuid-validator';
 
 @Controller('users')
 class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  private validateUUID(id: string) {
-    if (!id.match(/^[0-9a-fA-F-]{36}$/)) {
-      throw new BadRequestException('Invalid UUID format');
-    }
-  }
 
   @Post()
   create(@Body() user: CreateUserDto) {
     return this.usersService.create(user);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
 
+  @UseGuards(AuthGuard)
   @Patch('softdelete/:id')
   softDelete(@Param('id') id: string) {
-    this.validateUUID(id);
+    UUIDValidator.validate(id);
     return this.usersService.softDelete(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    this.validateUUID(id);
+    UUIDValidator.validate(id);
     return this.usersService.update(id, updateUserDto);
   }
 }

@@ -6,47 +6,48 @@ import {
   Delete,
   Body,
   Param,
-  BadRequestException,
+  UseGuards,
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
+import { UUIDValidator } from 'src/modules/utils/uuid-validator';
+import { AuthGuard } from 'src/modules/guard/auth.guard';
 
 @Controller('tasks')
 class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
-  private validateUUID(id: string) {
-    if (!id.match(/^[0-9a-fA-F-]{36}$/)) {
-      throw new BadRequestException('Invalid UUID format');
-    }
-  }
-
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() task: CreateTaskDto) {
     return this.tasksService.create(task);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    this.validateUUID(id);
+    UUIDValidator.validate(id);
     return this.tasksService.update(id, updateTaskDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   softDelete(@Param('id') id: string) {
-    this.validateUUID(id);
+    UUIDValidator.validate(id);
     return this.tasksService.softDelete(id);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.tasksService.findAll();
   }
 
+  @UseGuards(AuthGuard)
   @Get('user/:user_id')
   findAllByUser(@Param('user_id') userId: string) {
-    this.validateUUID(userId);
+    UUIDValidator.validate(userId);
     return this.tasksService.findAllByUser(userId);
   }
 }

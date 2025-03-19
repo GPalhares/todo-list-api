@@ -43,7 +43,7 @@ export class AuthService {
     user: UserEntity,
   ): Promise<{ access_token: string }> {
     const payload = {
-      sub: user.id,
+      id: user.id,
       email: user.email,
       user_type: user.user_type,
     };
