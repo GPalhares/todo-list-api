@@ -8,12 +8,13 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+
 import { UUIDValidator } from 'src/modules/utils/uuid-validator';
 import { AuthGuard } from 'src/modules/auth/guard/auth.guard';
 import { Request } from 'express';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 interface AuthenticatedRequest extends Request {
   user: { user_type: number };

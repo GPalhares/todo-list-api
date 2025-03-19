@@ -9,12 +9,13 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import { TasksService } from '../services/tasks.service';
-import { CreateTaskDto } from '../dto/create-task.dto';
-import { UpdateTaskDto } from '../dto/update-task.dto';
+
 import { UUIDValidator } from 'src/modules/utils/uuid-validator';
 import { AuthGuard } from 'src/modules/auth/guard/auth.guard';
 import { Request as ExpressRequest } from 'express';
+import { TasksService } from './tasks.service';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
 @UseGuards(AuthGuard)
