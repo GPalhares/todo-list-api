@@ -15,11 +15,9 @@ Content-Type: application/json
   "description": "Descrição atualizada2"
 }
 
-### Remover (soft delete) uma task
+### Remover uma task
 DELETE http://localhost:3000/tasks/0ccf3f3d-e508-473c-aba7-3cb3b02efa5a
 
 ### Listar todas as tasks de um usuário
-GET http://localhost:3000/tasks/user/6d05c473-7a06-45bd-bcf1-4496e4757fd2
+GET http://localhost:3000/tasks/user
 
-### Listar todas as tasks
-GET http://localhost:3000/tasks

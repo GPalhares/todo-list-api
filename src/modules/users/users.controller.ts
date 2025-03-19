@@ -7,6 +7,8 @@ import {
   Param,
   UseGuards,
   Req,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { UUIDValidator } from 'src/modules/utils/uuid-validator';
@@ -25,12 +27,14 @@ class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() user: CreateUserDto) {
     return this.usersService.create(user);
   }
 
   @UseGuards(AuthGuard)
   @Get()
+  @HttpCode(HttpStatus.OK)
   findAll(@Req() req: AuthenticatedRequest) {
     const { user_type } = req.user;
     return this.usersService.findAll(user_type);
@@ -38,6 +42,7 @@ class UsersController {
 
   @UseGuards(AuthGuard)
   @Patch('softdelete/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   softDelete(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
     UUIDValidator.validate(id);
     const { user_type } = req.user;
@@ -46,6 +51,7 @@ class UsersController {
 
   @UseGuards(AuthGuard)
   @Patch(':id')
+  @HttpCode(HttpStatus.OK)
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,

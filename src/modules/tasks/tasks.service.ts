@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, IsNull } from 'typeorm';
+import { Repository } from 'typeorm';
 import { TaskEntity } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -38,7 +38,7 @@ class TasksService {
 
   async findAllByUser(userId: string) {
     return this.tasksRepository.find({
-      where: { user: { id: userId }, deleted_at: IsNull() },
+      where: { user: { id: userId } },
     });
   }
 
@@ -51,13 +51,12 @@ class TasksService {
     return this.tasksRepository.findOneBy({ id });
   }
 
-  async softDelete(id: string) {
+  async delete(id: string) {
     const task = await this.tasksRepository.findOne({ where: { id } });
     if (!task) {
       throw new TaskNotFoundException();
     }
-    task.deleted_at = new Date();
-    return this.tasksRepository.save(task);
+    await this.tasksRepository.delete(id);
   }
 }
 

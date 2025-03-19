@@ -30,9 +30,6 @@ class TaskEntity {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updated_at: Date;
-
-  @Column({ type: 'timestamp', nullable: true })
-  deleted_at: Date | null;
 }
 
 export { TaskEntity };

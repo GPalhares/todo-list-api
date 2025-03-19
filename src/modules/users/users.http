@@ -4,13 +4,13 @@ Content-Type: application/json
 
 {
   "name": "Admin",
-  "email": "admin@demaria.com",
+  "email": "teste1.com",
   "password": "admin"
 }
 
 ### Listar Todos os Usuários
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2YTdjMjY2LTg5MGEtNDJlOS1iYzgwLTk3NDNmOTNjZDc0NCIsImVtYWlsIjoiYWRtaW5AZGVtYXJpYS5jb20uYnIiLCJ1c2VyX3R5cGUiOjIsImlhdCI6MTc0MjM5MzIxOCwiZXhwIjoxNzQyMzk2ODE4fQ.yBEnuoDpN6BLoBLeWwi8c8TepYLGA9D22TwCdfiFVBc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2YTdjMjY2LTg5MGEtNDJlOS1iYzgwLTk3NDNmOTNjZDc0NCIsImVtYWlsIjoiYWRtaW5AZGVtYXJpYS5jb20uYnIiLCJ1c2VyX3R5cGUiOjIsImlhdCI6MTc0MjM5OTU5MywiZXhwIjoxNzQyNDAzMTkzfQ.UWtpZbQ9FsROHQRooDISWCzj9CFenPEDkoZizTwl7cY
 
 ### Atualizar Usuário
 PATCH http://localhost:3000/users/f9c426c6-caa4-4125-bcf7-8112556dac38
@@ -24,3 +24,4 @@ Content-Type: application/json
 
 ### Soft Delete de Usuário
 PATCH http://localhost:3000/users/softdelete/f9c426c6-caa4-4125-bcf7-8112556dac38
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2YTdjMjY2LTg5MGEtNDJlOS1iYzgwLTk3NDNmOTNjZDc0NCIsImVtYWlsIjoiYWRtaW5AZGVtYXJpYS5jb20uYnIiLCJ1c2VyX3R5cGUiOjIsImlhdCI6MTc0MjM5OTU5MywiZXhwIjoxNzQyNDAzMTkzfQ.UWtpZbQ9FsROHQRooDISWCzj9CFenPEDkoZizTwl7cY
