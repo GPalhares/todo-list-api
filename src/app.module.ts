@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 
 import { UserEntity } from './modules/users/user.entity';
 import { TaskEntity } from './modules/tasks/task.entity';
+import 'dotenv/config';
 
 @Module({
   imports: [

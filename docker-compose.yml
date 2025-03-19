@@ -26,7 +26,7 @@ services:
       - '3000:3000'
     volumes:
       - .:/app
-    command: npm run start:dev
+    command: sh -c "npm run start:dev && sleep 60 && psql -h database -U demaria -d demaria -f /app/seed.sql"
 
 volumes:
   pgdata:
