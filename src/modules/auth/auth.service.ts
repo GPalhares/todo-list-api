@@ -1,15 +1,15 @@
-import {
-  Injectable,
-  UnauthorizedException,
-  ConflictException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { UserEntity } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
+
+import {
+  EmailAlreadyInUse,
+  InvalidCredentials,
+} from 'src/exceptions/auth-exceptions';
 
 @Injectable()
 export class AuthService {
@@ -23,7 +23,7 @@ export class AuthService {
     const user: UserEntity | null = await this.usersService.findOne(email);
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new InvalidCredentials();
     }
 
     return this.generateToken(user);
@@ -34,7 +34,7 @@ export class AuthService {
 
     const existingUser = await this.usersService.findOne(email);
     if (existingUser) {
-      throw new ConflictException('Email already in use');
+      throw new EmailAlreadyInUse();
     }
 
     const user = await this.usersService.create(registerDto);
