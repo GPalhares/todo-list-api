@@ -19,7 +19,7 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 interface AuthenticatedRequest extends Request {
-  user: { user_type: number; id: string };
+  user: { userType: number; id: string };
 }
 
 @Controller('users')
@@ -36,17 +36,8 @@ class UsersController {
   @Get()
   @HttpCode(HttpStatus.OK)
   findAll(@Req() req: AuthenticatedRequest) {
-    const { user_type } = req.user;
-    return this.usersService.findAll(user_type);
-  }
-
-  @UseGuards(AuthGuard)
-  @Patch('softdelete/:id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  softDelete(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
-    UUIDValidator.validate(id);
-    const { user_type } = req.user;
-    return this.usersService.softDelete(id, user_type);
+    const { userType } = req.user;
+    return this.usersService.findAll(userType);
   }
 
   @UseGuards(AuthGuard)
@@ -58,16 +49,32 @@ class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch(':id')
+  @Patch('me')
   @HttpCode(HttpStatus.OK)
   update(
-    @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
     @Req() req: AuthenticatedRequest,
   ) {
+    const { id } = req.user;
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('restore/:id')
+  @HttpCode(HttpStatus.OK)
+  restore(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
     UUIDValidator.validate(id);
-    const { user_type } = req.user;
-    return this.usersService.update(id, updateUserDto, user_type);
+    const { userType } = req.user;
+    return this.usersService.restore(id, userType);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('softdelete/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  softDelete(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
+    UUIDValidator.validate(id);
+    const { userType } = req.user;
+    return this.usersService.softDelete(id, userType);
   }
 }
 

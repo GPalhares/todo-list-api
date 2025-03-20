@@ -20,19 +20,20 @@ export class AuthService {
 
   private async generateToken(
     user: UserEntity,
-  ): Promise<{ access_token: string }> {
+  ): Promise<{ accessToken: string }> {
     const payload = {
       id: user.id,
       email: user.email,
-      user_type: user.user_type,
+      userType: user.userType,
       name: user.name,
     };
+
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      accessToken: await this.jwtService.signAsync(payload),
     };
   }
 
-  async login(loginDto: LoginDto): Promise<{ access_token: string }> {
+  async login(loginDto: LoginDto): Promise<{ accessToken: string }> {
     const { email, password } = loginDto;
     const user: UserEntity | null = await this.usersService.findOne(email);
 
@@ -43,7 +44,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async register(registerDto: RegisterDto): Promise<{ access_token: string }> {
+  async register(registerDto: RegisterDto): Promise<{ accessToken: string }> {
     const { email } = registerDto;
 
     const existingUser = await this.usersService.findOne(email);

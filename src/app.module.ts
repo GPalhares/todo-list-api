@@ -8,7 +8,10 @@ import { AuthModule } from './modules/auth/auth.module';
 
 import { UserEntity } from './modules/users/user.entity';
 import { TaskEntity } from './modules/tasks/task.entity';
+import { DataSource } from 'typeorm';
+
 import 'dotenv/config';
+import { seedAdminUser } from './admin-seed';
 
 @Module({
   imports: [
@@ -28,4 +31,10 @@ import 'dotenv/config';
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly dataSource: DataSource) {}
+
+  async onModuleInit() {
+    await seedAdminUser(this.dataSource);
+  }
+}

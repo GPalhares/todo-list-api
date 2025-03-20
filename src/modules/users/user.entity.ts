@@ -7,24 +7,28 @@ class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'name' })
   name: string;
 
-  @Column({ unique: true })
+  @Column({ name: 'email', unique: true })
   email: string;
 
   @Exclude()
-  @Column()
+  @Column({ name: 'password' })
   password: string;
 
-  @Column({ type: 'int', default: 1 })
-  user_type: number;
+  @Column({ name: 'user_type', type: 'int', default: 1 })
+  userType: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
-  deleted_at: Date | null;
+  @Column({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  deletedAt: Date | null;
 
   @BeforeInsert()
   async hashPassword() {

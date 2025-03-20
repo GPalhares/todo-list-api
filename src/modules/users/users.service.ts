@@ -39,15 +39,11 @@ class UsersService {
       throw new UserNotFoundException();
     }
 
-    user.deleted_at = new Date();
+    user.deletedAt = new Date();
     return this.usersRepository.save(user);
   }
 
-  async update(id: string, dto: UpdateUserDto, userType: number) {
-    if (userType !== 2) {
-      throw new UnauthorizedException();
-    }
-
+  async update(id: string, dto: UpdateUserDto) {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
       throw new UserNotFoundException();
@@ -58,7 +54,8 @@ class UsersService {
   }
 
   async findOne(email: string): Promise<UserEntity | null> {
-    return await this.usersRepository.findOne({ where: { email } });
+    const user = await this.usersRepository.findOne({ where: { email } });
+    return user;
   }
 
   async findById(id: string): Promise<UserEntity | null> {
@@ -67,6 +64,20 @@ class UsersService {
       throw new UserNotFoundException();
     }
     return instanceToPlain(user) as UserEntity;
+  }
+
+  async restore(id: string, userType: number) {
+    if (userType !== 2) {
+      throw new UnauthorizedException();
+    }
+
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new UserNotFoundException();
+    }
+
+    user.deletedAt = null;
+    return this.usersRepository.save(user);
   }
 }
 

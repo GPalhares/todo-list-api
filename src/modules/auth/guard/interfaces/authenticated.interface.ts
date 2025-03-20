@@ -4,6 +4,6 @@ export interface AuthenticatedRequest extends Request {
   user?: {
     id: string;
     email: string;
-    user_type: number;
+    userType: number;
   };
 }

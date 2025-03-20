@@ -1,19 +1,23 @@
-import { IsString, IsOptional, IsArray, IsEnum, IsUUID } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+} from 'class-validator';
 
 class CreateTaskDto {
   @IsString()
+  @IsNotEmpty()
   description: string;
 
   @IsOptional()
-  @IsEnum(['pendente', 'concluída', 'em progresso'])
-  status: 'pendente' | 'concluída' | 'em progresso' = 'pendente';
+  @IsBoolean()
+  completed: boolean = false;
 
   @IsOptional()
   @IsArray()
   tags: string[] = [];
-
-  @IsUUID()
-  userId: string;
 }
 
 export { CreateTaskDto };

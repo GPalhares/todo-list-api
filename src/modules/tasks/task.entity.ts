@@ -16,20 +16,28 @@ class TaskEntity {
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
 
-  @Column()
+  @Column({ name: 'description' })
   description: string;
 
-  @Column({ default: 'pendente' })
-  status: string;
+  @Column({ name: 'completed', type: 'boolean', default: false })
+  completed: boolean;
 
-  @Column('text', { array: true, default: [] })
+  @Column({ name: 'tags', type: 'text', array: true, default: [] })
   tags: string[];
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @Column({
+    name: 'created_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updated_at: Date;
+  @Column({
+    name: 'updated_at',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
 }
 
 export { TaskEntity };
