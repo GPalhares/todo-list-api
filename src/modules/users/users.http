@@ -4,13 +4,18 @@ Content-Type: application/json
 
 {
   "name": "Admin",
-  "email": "teste1.com",
-  "password": "admin"
+  "email": "teste1@11a.com",
+  "password": "adminaa1"
 }
 
 ### Listar Todos os Usuários
 GET http://localhost:3000/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2YTdjMjY2LTg5MGEtNDJlOS1iYzgwLTk3NDNmOTNjZDc0NCIsImVtYWlsIjoiYWRtaW5AZGVtYXJpYS5jb20uYnIiLCJ1c2VyX3R5cGUiOjIsImlhdCI6MTc0MjM5OTU5MywiZXhwIjoxNzQyNDAzMTkzfQ.UWtpZbQ9FsROHQRooDISWCzj9CFenPEDkoZizTwl7cY
+
+### Listar Usuário logado
+GET http://localhost:3000/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1NDk0YWIwLWIzZmQtNGRjNi04NmJiLWEyMDBiMjlmM2I3MiIsImVtYWlsIjoiYWRtaW5AZGVtYXJpYS5jb20uYnIiLCJ1c2VyX3R5cGUiOjEsImlhdCI6MTc0MjQyOTgwMywiZXhwIjoxNzQyNDMzNDAzfQ.T6RRnKdFgHG2Kj2V477bWuybQQyD77Co3enVV_3IL4E
+
 
 ### Atualizar Usuário
 PATCH http://localhost:3000/users/f9c426c6-caa4-4125-bcf7-8112556dac38

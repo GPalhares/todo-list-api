@@ -57,6 +57,14 @@ class UsersService {
   async findOne(email: string): Promise<UserEntity | null> {
     return await this.usersRepository.findOne({ where: { email } });
   }
+
+  async findById(id: string): Promise<UserEntity | null> {
+    const user = await this.usersRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new UserNotFoundException();
+    }
+    return user;
+  }
 }
 
 export { UsersService };

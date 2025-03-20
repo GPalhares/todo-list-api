@@ -19,7 +19,7 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 interface AuthenticatedRequest extends Request {
-  user: { user_type: number };
+  user: { user_type: number; id: string };
 }
 
 @Controller('users')
@@ -47,6 +47,14 @@ class UsersController {
     UUIDValidator.validate(id);
     const { user_type } = req.user;
     return this.usersService.softDelete(id, user_type);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('me')
+  @HttpCode(HttpStatus.OK)
+  async getProfile(@Req() req: AuthenticatedRequest) {
+    const { id } = req.user;
+    return this.usersService.findById(id);
   }
 
   @UseGuards(AuthGuard)
