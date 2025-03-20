@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -26,7 +26,12 @@ class UsersService {
       throw new UnauthorizedException();
     }
 
-    const users = await this.usersRepository.find();
+    const users = await this.usersRepository.find({
+      where: {
+        userType: Not(2),
+      },
+    });
+
     return users.map((user) => instanceToPlain(user));
   }
 

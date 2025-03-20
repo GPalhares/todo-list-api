@@ -14,7 +14,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  app:
+  api:
     build: .
     container_name: demaria_api
     restart: always
@@ -25,7 +25,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - .:/app
+      - ./src:/app/src
     command: sh -c "npm run start:dev"
 
 volumes:
