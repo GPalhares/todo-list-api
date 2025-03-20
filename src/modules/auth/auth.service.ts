@@ -10,6 +10,7 @@ import {
   EmailAlreadyInUse,
   InvalidCredentials,
 } from 'src/exceptions/auth-exceptions';
+import { UnauthorizedException } from 'src/exceptions/commom-exceptions';
 
 @Injectable()
 export class AuthService {
@@ -39,6 +40,10 @@ export class AuthService {
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new InvalidCredentials();
+    }
+
+    if (user.deletedAt) {
+      throw new UnauthorizedException();
     }
 
     return this.generateToken(user);
