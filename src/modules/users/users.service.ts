@@ -45,12 +45,16 @@ class UsersService {
 
   async update(id: string, dto: UpdateUserDto) {
     const user = await this.usersRepository.findOne({ where: { id } });
+
     if (!user) {
       throw new UserNotFoundException();
     }
 
     await this.usersRepository.update(id, dto);
-    return this.usersRepository.findOne({ where: { id } });
+
+    const updatedUser = await this.usersRepository.findOne({ where: { id } });
+
+    return instanceToPlain(updatedUser);
   }
 
   async findOne(email: string): Promise<UserEntity | null> {
