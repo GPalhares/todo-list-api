@@ -144,3 +144,7 @@ Este repositório contém o **backend** da aplicação de To-Do List, desenvolvi
 | PATCH  | /users/me             | Atualiza os dados do usuário logado.                   |
 | PATCH  | /users/softdelete/:id | Desativa um usuário sem removê-lo do banco (admin).    |
 | PATCH  | /users/restore/:id    | Restaura um usuário que foi desativado (apenas admin). |
+
+---
+
+Se você leu até aqui, muito obrigado! 🙏 Agradeço também à DeMaria pela oportunidade de desenvolver este projeto como parte do processo seletivo. Foi uma experiência incrível e enriquecedora! 🚀
