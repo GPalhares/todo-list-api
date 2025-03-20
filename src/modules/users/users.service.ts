@@ -6,6 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UnauthorizedException } from 'src/exceptions/commom-exceptions';
 import { UserNotFoundException } from 'src/exceptions/users-exceptions';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable()
 class UsersService {
@@ -23,7 +24,9 @@ class UsersService {
     if (userType !== 2) {
       throw new UnauthorizedException();
     }
-    return await this.usersRepository.find();
+
+    const users = await this.usersRepository.find();
+    return users.map((user) => instanceToPlain(user));
   }
 
   async softDelete(id: string, userType: number) {
@@ -63,7 +66,7 @@ class UsersService {
     if (!user) {
       throw new UserNotFoundException();
     }
-    return user;
+    return instanceToPlain(user) as UserEntity;
   }
 }
 
