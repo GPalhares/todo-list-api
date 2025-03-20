@@ -7,6 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UnauthorizedException } from 'src/exceptions/commom-exceptions';
 import { UserNotFoundException } from 'src/exceptions/users-exceptions';
 import { instanceToPlain } from 'class-transformer';
+import { EmailAlreadyInUse } from 'src/exceptions/auth-exceptions';
 
 @Injectable()
 class UsersService {
@@ -48,6 +49,16 @@ class UsersService {
 
     if (!user) {
       throw new UserNotFoundException();
+    }
+
+    if (dto.email) {
+      const existingUser = await this.usersRepository.findOne({
+        where: { email: dto.email },
+      });
+
+      if (existingUser && existingUser.id !== id) {
+        throw new EmailAlreadyInUse();
+      }
     }
 
     await this.usersRepository.update(id, dto);
