@@ -36,6 +36,14 @@ Este repositório contém o **backend** da aplicação de To-Do List, desenvolvi
    http://localhost:3000/
    ```
 
+## Funcionalidades 🔑
+
+1. **Autenticação JWT**
+2. **Gestão de Usuários e Tarefas**
+3. **Sistema de Admin**
+4. **Soft Delete**
+5. **Dockerização do Projeto**
+
 ### ⚠️ Atenção:
 
 - O arquivo **.env** foi incluído para facilitar a execução do projeto, pois tanto o banco de dados quanto a API estão dockerizados e serão iniciados automaticamente. **Não é recomendado deixar o .env público em produção.**
@@ -136,11 +144,3 @@ Este repositório contém o **backend** da aplicação de To-Do List, desenvolvi
 | PATCH  | /users/me             | Atualiza os dados do usuário logado.                   |
 | PATCH  | /users/softdelete/:id | Desativa um usuário sem removê-lo do banco (admin).    |
 | PATCH  | /users/restore/:id    | Restaura um usuário que foi desativado (apenas admin). |
-
-## Funcionalidades 🔑
-
-1. **Autenticação JWT**
-2. **Gestão de Usuários e Tarefas**
-3. **Sistema de Admin**
-4. **Soft Delete**
-5. **Dockerização do Projeto**
