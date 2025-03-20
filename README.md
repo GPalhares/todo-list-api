@@ -1,98 +1,146 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Todo List - Backend 🚀
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este repositório contém o **backend** da aplicação de To-Do List, desenvolvido para a vaga de desenvolvedor Fullstack na empresa DeMaria. A aplicação foi construída utilizando **NestJS** e outras tecnologias modernas para garantir segurança, performance e escalabilidade.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Como Rodar o Projeto 💻
 
-## Description
+1. **Clone o Repositório** 🖥️:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+   Para começar, clone o repositório do GitHub com o seguinte comando:
 
-## Project setup
+   ```bash
+   git clone git@github.com:GPalhares/todo-list-api.git
+   ```
 
-```bash
-$ npm install
-```
+2. **Acesse a Pasta do Projeto** 📂:
 
-## Compile and run the project
+   Após clonar o repositório, entre na pasta do projeto com o comando:
 
-```bash
-# development
-$ npm run start
+   ```bash
+   cd todo-list-api
+   ```
 
-# watch mode
-$ npm run start:dev
+3. **Suba o Docker em Segundo Plano** 🐳:
 
-# production mode
-$ npm run start:prod
-```
+   Agora, utilize o Docker para rodar a aplicação em segundo plano. Para isso, execute o seguinte comando:
 
-## Run tests
+   ```bash
+   docker compose up -d
+   ```
 
-```bash
-# unit tests
-$ npm run test
+4. **Acesse a API** 🌐:
 
-# e2e tests
-$ npm run test:e2e
+   Após iniciar o servidor, você pode acessar a API no seguinte endpoint:
 
-# test coverage
-$ npm run test:cov
-```
+   ```
+   http://localhost:3000/
+   ```
 
-## Deployment
+### ⚠️ Atenção:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- O arquivo **.env** foi incluído para facilitar a execução do projeto, pois tanto o banco de dados quanto a API estão dockerizados e serão iniciados automaticamente. **Não é recomendado deixar o .env público em produção.**
+- A API gera automaticamente um usuário administrador (**userType 2**) quando o Docker é iniciado. **Essa prática não é recomendada em produção; o ideal seria utilizar uma migration para criação de usuários.**
+  - **E-mail:** admin@demaria.com
+  - **Senha:** demaria
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Ferramentas e Bibliotecas Utilizadas ⚙️
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+1. **NestJS** 🌐:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+   - Framework TypeScript para desenvolvimento backend modular e escalável.
 
-## Resources
+2. **TypeORM** 📝:
 
-Check out a few resources that may come in handy when working with NestJS:
+   - ORM para manipulação do banco de dados PostgreSQL de maneira intuitiva.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+3. **PostgreSQL** 📂:
 
-## Support
+   - Banco de dados relacional robusto e eficiente.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+4. **JWT (JSON Web Token)** 🔒:
 
-## Stay in touch
+   - Utilizado para autenticação segura dos usuários.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+5. **BCrypt** 🛡️:
 
-## License
+   - Biblioteca para criptografar senhas de usuários antes de armazená-las no banco de dados.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+6. **Docker** 🐳:
+   - Utilizado para garantir um ambiente padronizado para desenvolvimento e produção.
+
+## Decisões Técnicas 💡
+
+1. **Arquitetura Modular** 🏰:
+
+   - Separação organizada entre **módulos**, **serviços** e **controladores**, facilitando manutenção e escalabilidade.
+
+2. **Autenticação Segura com JWT** 🔐:
+
+   - Todas as rotas protegidas exigem um **token JWT válido**, garantindo segurança no acesso aos recursos.
+
+3. **BCrypt para Criptografia de Senhas** 🔑:
+
+   - Todas as senhas são criptografadas antes de serem armazenadas, evitando exposição de dados sensíveis.
+
+4. **Uso de DTOs (Data Transfer Objects)** 📦:
+
+   - Validação de dados antes do processamento, garantindo integridade e segurança nas requisições.
+
+5. **Sistema de Admin para Gerenciamento de Usuários** 💼:
+
+   - O administrador pode visualizar e gerenciar todos os usuários do sistema.
+
+6. **Soft Delete de Usuários** 🛠️:
+
+   - Os usuários não são excluídos permanentemente, permitindo recuperação futura caso necessário.
+
+7. **Auth Guards para Requests Restritos** 🗓️:
+
+   - Implementação de **guards** para garantir que apenas usuários autorizados acessem determinadas rotas.
+
+8. **Validação de Dados com Class Validator** ✅:
+
+   - Validação rigorosa de entradas antes do processamento, prevenindo dados inválidos ou maliciosos.
+
+9. **Padrão Repository com TypeORM** 📚:
+
+   - Melhor organização e controle sobre operações no banco de dados.
+
+10. **Uso de UUIDs ao invés de IDs Numéricos** 🔖:
+
+- O uso de **UUIDs** evita previsibilidade nos identificadores e melhora a segurança, especialmente em ambientes distribuídos.
+
+## Endpoints Auth 🚀
+
+| Método | Rota           | Descrição                                    |
+| ------ | -------------- | -------------------------------------------- |
+| POST   | /auth/register | Cria um novo usuário no sistema.             |
+| POST   | /auth/login    | Autentica um usuário e retorna um token JWT. |
+
+## Endpoints Tasks 🚀
+
+| Método | Rota        | Descrição                                      |
+| ------ | ----------- | ---------------------------------------------- |
+| GET    | /tasks/user | Lista todas as tarefas do usuário logado.      |
+| POST   | /tasks      | Cria uma nova tarefa para o usuário logado.    |
+| PATCH  | /tasks/:id  | Atualiza os detalhes de uma tarefa específica. |
+| DELETE | /tasks/:id  | Remove uma tarefa do usuário logado.           |
+
+## Endpoints Users 🚀
+
+| Método | Rota                  | Descrição                                              |
+| ------ | --------------------- | ------------------------------------------------------ |
+| POST   | /users                | Registra um novo usuário (usado pelo auth).            |
+| GET    | /users                | Lista todos os usuários (apenas admin).                |
+| GET    | /users/me             | Retorna os dados do usuário logado.                    |
+| PATCH  | /users/me             | Atualiza os dados do usuário logado.                   |
+| PATCH  | /users/softdelete/:id | Desativa um usuário sem removê-lo do banco (admin).    |
+| PATCH  | /users/restore/:id    | Restaura um usuário que foi desativado (apenas admin). |
+
+## Funcionalidades 🔑
+
+1. **Autenticação JWT**
+2. **Gestão de Usuários e Tarefas**
+3. **Sistema de Admin**
+4. **Soft Delete**
+5. **Dockerização do Projeto**
